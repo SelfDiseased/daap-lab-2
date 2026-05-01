@@ -1,0 +1,47 @@
+syntax = "proto3";
+
+package plane;
+
+service PlaneService {
+    rpc AddPlane (PlaneRequest) returns (PlaneResponse);
+}
+
+enum PlaneType {
+    FIGHTER        = 0;
+    ESCORT         = 1;
+    INTERCEPTOR    = 2;
+    RECONNAISSANCE = 3;
+    SUPPORT        = 4;
+}
+
+message Ammunition {
+    int32 missiles = 1;
+}
+
+message Chars {
+    PlaneType  type           = 1;
+    int32      seats          = 2;
+    bool       has_ammunition = 3;
+    Ammunition ammunition     = 4;
+    bool       has_radar      = 5;
+}
+
+message Parameters {
+    float length = 1;
+    float width  = 2;
+    float height = 3;
+}
+
+message PlaneRequest {
+    string     model      = 1;
+    string     origin     = 2;
+    repeated Chars chars  = 3;
+    Parameters parameters = 4;
+    float      price      = 5;
+}
+
+message PlaneResponse {
+    bool   success  = 1;
+    string message  = 2;
+    string plane_id = 3;
+}
